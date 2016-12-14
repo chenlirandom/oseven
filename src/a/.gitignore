@@ -2,7 +2,7 @@
 .externalNativeBuild
 .gradle
 /.idea/libraries
-/.idea/workspace.xml
+/.idea/*.xml
 /build
 /captures
 /local.properties
