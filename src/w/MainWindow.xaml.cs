@@ -24,5 +24,13 @@ namespace o7
         {
             InitializeComponent();
         }
+
+        void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //string clientId = "6339200bde6e48678c4be91d561a9847";
+            //string clientKey = "C8pgRgypX11wX7EOyEoHc2kvw0pBfnL8aBSD0SC0";
+            var c = new Character(Character.ChenLi);
+            this.tb1.Text = c.PublicInfoResponse;
+        }
     }
 }

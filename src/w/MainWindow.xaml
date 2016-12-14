@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:o7"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <TextBox x:Name="tb1"/>
+    <Button Grid.Column="1" Content="Authenticate Me!" Click="Button_Click"/>
+  </Grid>
 </Window>
