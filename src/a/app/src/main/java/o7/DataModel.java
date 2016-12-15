@@ -10,5 +10,11 @@ class Character {
 
     Character(int id) {
         this.id = id;
+        FetchChacterBasicInfo();
+    }
+
+    private void FetchChacterBasicInfo()
+    {
+
     }
 }
