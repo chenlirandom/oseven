@@ -1,4 +1,4 @@
-package o7.main;
+package o7;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
