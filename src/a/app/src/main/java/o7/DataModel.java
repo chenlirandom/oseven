@@ -1,4 +1,4 @@
-package o7.main;
+package o7;
 
 // Main class for one EVE character.
 class Character {
