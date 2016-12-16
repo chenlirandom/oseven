@@ -1,0 +1,5 @@
+g           "git $*"
+.           "pushd ."
+root        "cd /d %O7_ROOT%\$*"
+android     "cd /d %O7_ROOT%\src\a\app\src\main\$*"
+env         "cd /d %O7_ROOT%\env\$*"
