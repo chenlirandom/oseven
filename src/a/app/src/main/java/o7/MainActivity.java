@@ -3,6 +3,7 @@ package o7;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Pair;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,11 +40,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // setup test button
+        Button testButton = (Button)findViewById(R.id.test_button);
+        if (null != testButton) {
+            testButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    test1();
+                }
+            });
+        }
     }
 
     @Override
@@ -82,20 +97,57 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        }
+        else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+        }
+        else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        }
+        else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        }
+        else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        }
+        else if (id == R.id.nav_send) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    void test1() {
+
+        class QueryJsonObjectTask extends android.os.AsyncTask<String, Integer, Pair<HResult, JSONObject>> {
+            protected Pair<HResult, JSONObject> doInBackground(String... urls) {
+                return Helpers.queryJsonObjectFromNetwork(urls[0]);
+            }
+
+            @Override
+            protected void onPostExecute(Pair<HResult, JSONObject> result) {
+                TextView testView = (TextView) findViewById(R.id.test_text_view);
+                if (null == testView) {
+                    return;
+                }
+                if (result.first.isSucceeded()) {
+                    JSONObject jo = result.second;
+                    try {
+                        testView.setText(jo.toString(1));
+                    }
+                    catch(Exception ex) {
+                        testView.setText(ex.toString());
+                    }
+                } else {
+                    testView.setText(result.first.toString());
+                }
+            }
+        }
+
+        // query character list
+        String url = "https://esi.tech.ccp.is/latest/search/?search=chenli&categories=character&language=en-us&strict=false&datasource=tranquility";
+        new QueryJsonObjectTask().execute(url);
     }
 }
